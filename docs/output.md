@@ -215,3 +215,15 @@ with open('embeddings.npz', 'rb') as f:
   single_embeddings = embeddings['single_embeddings']
   pair_embeddings = embeddings['pair_embeddings']
 ```
+
+## Chirality checks
+
+In the AlphaFold 3 paper Posebusters results, a penalty was applied to the
+ranking score if the ligand of interest contained chiral errors. By running
+multiple seeds and using this chiral aware ranking, chiral error rates were
+greatly reduced.
+
+We provide the method `compare_chirality` in
+[`model/scoring/chirality.py`](https://github.com/google-deepmind/alphafold3/blob/main/src/alphafold3/model/scoring/chirality.py)
+to replicate these chiral checks. Chirality is checked against CCD structures if
+available, otherwise users can supply custom RDKit Mol objects for comparison.
